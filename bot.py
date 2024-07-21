@@ -46,19 +46,17 @@ def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 
-RAG_Chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | chat_template
-    | chat_model
-    | output_parser
-)
-
-
 @app.route("/api/chat", methods=["POST"])
 def chat():
     data = request.get_json()
     question = data.get("question")
-    context = ""  # Retrieve context from your sources if needed
+    RAG_Chain = (
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        | chat_template
+        | chat_model
+        | output_parser
+    )
+
     response = RAG_Chain.invoke(question)
     return jsonify({"answer": response})
 

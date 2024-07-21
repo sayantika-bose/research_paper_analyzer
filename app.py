@@ -17,7 +17,6 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import NLTKTextSplitter
 from langchain_chroma import Chroma
-from flask_dance.contrib.google import make_google_blueprint, google
 from flask_session import Session
 
 
@@ -167,7 +166,7 @@ def upload_file():
 def process_file(file_path):
     loader = PyPDFLoader(file_path)
     pages = loader.load()
-    text_splitter = NLTKTextSplitter(chunk_size=500, chunk_overlap=100)
+    text_splitter = NLTKTextSplitter(chunk_size=1000, chunk_overlap=100)
     chunks = text_splitter.split_documents(pages)
     print(len(chunks))
 
