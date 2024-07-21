@@ -59,8 +59,8 @@ class User(UserMixin):
             return User(
                 email=user_data["email"],
                 password=user_data["password"],
-                name=user_data["name"],
-                phone=user_data["phone"],
+                name=user_data.get("name"),
+                phone=user_data.get("phone"),
             )
         return None
 
@@ -102,7 +102,19 @@ def login():
     user = User.get(email)
     if user and bcrypt.check_password_hash(user.password, password):
         login_user(user)
-        return jsonify({"message": "Login successful", "user": user}), 200
+        return (
+            jsonify(
+                {
+                    "message": "Login successful",
+                    "user": {
+                        "email": user.email,
+                        "name": user.name,
+                        "phone": user.phone,
+                    },
+                }
+            ),
+            200,
+        )
     return jsonify({"message": "Invalid email or password"}), 401
 
 
