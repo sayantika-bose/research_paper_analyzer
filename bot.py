@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from langchain_google_genai import GoogleGenerativeAI, GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from pymongo import MongoClient
+from langchain_mongodb import MongoDBAtlasVectorSearch
+from langchain.chains import RetrievalQA
 from langchain_core.messages import SystemMessage
-from langchain_core.prompts import HumanMessagePromptTemplate, ChatPromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -17,21 +19,30 @@ doc_embeddings_model = GoogleGenerativeAIEmbeddings(
     google_api_key="AIzaSyBT_cXS1-V5ggaDcx7heSHJMb0h1r-xoPU",
 )
 
-db_connection = Chroma(
-    persist_directory="./chroma_db", embedding_function=doc_embeddings_model
+client = MongoClient(
+    "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/"
+)
+dbName = "gemini_project"
+collectionName = "Research_Paper"
+collection = client[dbName][collectionName]
+
+vector_search = MongoDBAtlasVectorSearch.from_connection_string(
+    "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/",
+    dbName + "." + collectionName,
+    doc_embeddings_model,
+    index_name="default",
 )
 
-retriever = db_connection.as_retriever(search_kwargs={"k": 110})
+retriever = vector_search.as_retriever(search_kwargs={"k": 110})
 
-chat_template = ChatPromptTemplate.from_messages(
-    [
-        SystemMessage(
-            content="""You are a useful AI bot, answer any question asked by the user from the specific information regarding it. Don't answer anything apart from that"""
-        ),
-        HumanMessagePromptTemplate.from_template(
-            """Answer the following question based on the specific context. Context:{context} Question:{question} Answer:"""
-        ),
-    ]
+prompt_template = """Interact with the user based upon their sentiment and check whether the context is related to a research paper, if it is a research paper, then answer to the questions asked by the user. If not ask the user to upload a research paper and you neednt answer the question asked by the user.
+
+{context}
+
+Question: {question}
+"""
+PROMPT = PromptTemplate(
+    template=prompt_template, input_variables=["context", "question"]
 )
 
 chat_model = ChatGoogleGenerativeAI(
@@ -52,7 +63,7 @@ def chat():
     question = data.get("question")
     RAG_Chain = (
         {"context": retriever | format_docs, "question": RunnablePassthrough()}
-        | chat_template
+        | PROMPT
         | chat_model
         | output_parser
     )

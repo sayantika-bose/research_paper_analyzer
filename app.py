@@ -5,11 +5,11 @@ import os
 from flask_cors import CORS
 from flask_login import (
     LoginManager,
-    UserMixin,
-    login_user,
     login_required,
+    login_user,
     logout_user,
     current_user,
+    UserMixin,
 )
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
@@ -18,6 +18,9 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import NLTKTextSplitter
 from langchain_chroma import Chroma
 from flask_session import Session
+from pymongo import MongoClient
+from langchain_mongodb import MongoDBAtlasVectorSearch
+from langchain.chains import RetrievalQA
 
 
 app = Flask(__name__)
@@ -26,7 +29,9 @@ app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/gemini"  # MongoDB URI
 mongo = PyMongo(app)
 CORS(app)
 
-app.config["SECRET_KEY"] = "your_secret_key"
+app.config["SECRET_KEY"] = (
+    "9f0cb7d7116f1092ef1fc972315480321215f7f515ef2cc6852663c65c2c2540"
+)
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = False
 app.config["UPLOAD_FOLDER"] = os.path.join(os.getcwd(), "uploads")
@@ -117,21 +122,17 @@ def login():
     return jsonify({"message": "Invalid email or password"}), 401
 
 
-@app.route("/logout")
-@login_required
+@app.route("/logout", methods=["POST"])
 def logout():
-    # Remove user-specific files
-    user_email = current_user.email
-    user_files = mongo.db.files.find({"user_email": user_email})
-    for file in user_files:
-        try:
-            os.remove(file["filepath"])
-        except OSError as e:
-            print(f"Error: {file['filepath']} : {e.strerror}")
-        mongo.db.files.delete_one({"_id": file["_id"]})
+    client = MongoClient(
+        "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/"
+    )
+    dbName = "gemini_project"
+    collectionName = "Research_Paper"
+    collection = client[dbName][collectionName]
+    collection.delete_many({})
 
     # Clear session
-    Session.clear()
     logout_user()
     return jsonify({"message": "Logout successful"}), 200
 
@@ -166,7 +167,7 @@ def upload_file():
 def process_file(file_path):
     loader = PyPDFLoader(file_path)
     pages = loader.load()
-    text_splitter = NLTKTextSplitter(chunk_size=1000, chunk_overlap=100)
+    text_splitter = NLTKTextSplitter(chunk_size=2000, chunk_overlap=150)
     chunks = text_splitter.split_documents(pages)
     print(len(chunks))
 
@@ -175,8 +176,18 @@ def process_file(file_path):
         task_type="retrieval_document",
         google_api_key="AIzaSyBT_cXS1-V5ggaDcx7heSHJMb0h1r-xoPU",
     )
-    db = Chroma.from_documents(
-        chunks, doc_embeddings_model, persist_directory="./chroma_db"
+    client = MongoClient(
+        "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/"
+    )
+    dbName = "gemini_project"
+    collectionName = "Research_Paper"
+    collection = client[dbName][collectionName]
+
+    MongoDBAtlasVectorSearch.from_documents(
+        documents=chunks,
+        embedding=doc_embeddings_model,
+        collection=collection,
+        index_name="default",
     )
 
 
