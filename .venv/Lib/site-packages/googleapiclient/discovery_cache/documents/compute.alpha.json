@@ -14084,6 +14084,210 @@
 }
 }
 },
+"instantSnapshotGroups": {
+"methods": {
+"delete": {
+"description": "deletes a Zonal InstantSnapshotGroup resource",
+"flatPath": "projects/{project}/zones/{zone}/instantSnapshotGroups/{instantSnapshotGroup}",
+"httpMethod": "DELETE",
+"id": "compute.instantSnapshotGroups.delete",
+"parameterOrder": [
+"project",
+"zone",
+"instantSnapshotGroup"
+],
+"parameters": {
+"instantSnapshotGroup": {
+"description": "Name of the InstantSnapshot resource to delete.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?|[1-9][0-9]{0,19}",
+"required": true,
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"requestId": {
+"description": "An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).",
+"location": "query",
+"type": "string"
+},
+"zone": {
+"description": "The name of the zone for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+}
+},
+"path": "projects/{project}/zones/{zone}/instantSnapshotGroups/{instantSnapshotGroup}",
+"response": {
+"$ref": "Operation"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute"
+]
+},
+"get": {
+"description": "returns the specified InstantSnapshotGroup resource in the specified zone.",
+"flatPath": "projects/{project}/zones/{zone}/instantSnapshotGroups/{instantSnapshotGroup}",
+"httpMethod": "GET",
+"id": "compute.instantSnapshotGroups.get",
+"parameterOrder": [
+"project",
+"zone",
+"instantSnapshotGroup"
+],
+"parameters": {
+"instantSnapshotGroup": {
+"description": "Name of the instantSnapshotGroup resource to return.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?|[1-9][0-9]{0,19}",
+"required": true,
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"zone": {
+"description": "The name of the zone for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+}
+},
+"path": "projects/{project}/zones/{zone}/instantSnapshotGroups/{instantSnapshotGroup}",
+"response": {
+"$ref": "InstantSnapshotGroup"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute",
+"https://www.googleapis.com/auth/compute.readonly"
+]
+},
+"insert": {
+"description": "inserts a Zonal InstantSnapshotGroup resource",
+"flatPath": "projects/{project}/zones/{zone}/instantSnapshotGroups",
+"httpMethod": "POST",
+"id": "compute.instantSnapshotGroups.insert",
+"parameterOrder": [
+"project",
+"zone"
+],
+"parameters": {
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"requestId": {
+"description": "An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).",
+"location": "query",
+"type": "string"
+},
+"sourceConsistencyGroup": {
+"description": "begin_interface: MixerMutationRequestBuilder",
+"location": "query",
+"type": "string"
+},
+"zone": {
+"description": "Name of the zone for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+}
+},
+"path": "projects/{project}/zones/{zone}/instantSnapshotGroups",
+"request": {
+"$ref": "InstantSnapshotGroup"
+},
+"response": {
+"$ref": "Operation"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute"
+]
+},
+"list": {
+"description": "retrieves the list of InstantSnapshotGroup resources contained within the specified zone.",
+"flatPath": "projects/{project}/zones/{zone}/instantSnapshotGroups",
+"httpMethod": "GET",
+"id": "compute.instantSnapshotGroups.list",
+"parameterOrder": [
+"project",
+"zone"
+],
+"parameters": {
+"filter": {
+"description": "A filter expression that filters resources listed in the response. Most Compute resources support two types of filter expressions: expressions that support regular expressions and expressions that follow API improvement proposal AIP-160. These two types of filter expressions cannot be mixed in one request. If you want to use AIP-160, your expression must specify the field name, an operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The operator must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`. For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`. The `:*` comparison can be used to test whether a key has been defined. For example, to find all objects with `owner` label use: ``` labels.owner:* ``` You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels. To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true) ``` If you want to use a regular expression, use the `eq` (equal) or `ne` (not equal) operator against a single un-parenthesized expression with or without quotes or against multiple parenthesized expressions. Examples: `fieldname eq unquoted literal` `fieldname eq 'single quoted literal'` `fieldname eq \"double quoted literal\"` `(fieldname1 eq literal) (fieldname2 ne \"literal\")` The literal value is interpreted as a regular expression using Google RE2 library syntax. The literal value must match the entire field. For example, to filter for instances that do not end with name \"instance\", you would use `name ne .*instance`. You cannot combine constraints on multiple fields using regular expressions.",
+"location": "query",
+"type": "string"
+},
+"maxResults": {
+"default": "500",
+"description": "The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)",
+"format": "uint32",
+"location": "query",
+"minimum": "0",
+"type": "integer"
+},
+"orderBy": {
+"description": "Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name. You can also sort results in descending order based on the creation timestamp using `orderBy=\"creationTimestamp desc\"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first. Currently, only sorting by `name` or `creationTimestamp desc` is supported.",
+"location": "query",
+"type": "string"
+},
+"pageToken": {
+"description": "Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.",
+"location": "query",
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"returnPartialSuccess": {
+"description": "Opt-in for partial success behavior which provides partial results in case of failure. The default value is false. For example, when partial success behavior is enabled, aggregatedList for a single zone scope either returns all resources in the zone or no resources, with an error code.",
+"location": "query",
+"type": "boolean"
+},
+"zone": {
+"description": "The name of the zone for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+}
+},
+"path": "projects/{project}/zones/{zone}/instantSnapshotGroups",
+"response": {
+"$ref": "ListInstantSnapshotGroups"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute",
+"https://www.googleapis.com/auth/compute.readonly"
+]
+}
+}
+},
 "instantSnapshots": {
 "methods": {
 "aggregatedList": {
@@ -26304,6 +26508,106 @@
 }
 }
 },
+"regionInstanceGroupManagerResizeRequests": {
+"methods": {
+"get": {
+"description": "Returns all of the details about the specified resize request.",
+"flatPath": "projects/{project}/regions/{region}/instanceGroupManagers/{instanceGroupManager}/resizeRequests/{resizeRequest}",
+"httpMethod": "GET",
+"id": "compute.regionInstanceGroupManagerResizeRequests.get",
+"parameterOrder": [
+"project",
+"region",
+"instanceGroupManager",
+"resizeRequest"
+],
+"parameters": {
+"instanceGroupManager": {
+"description": "The name of the managed instance group. Name should conform to RFC1035 or be a resource ID.",
+"location": "path",
+"required": true,
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"region": {
+"description": "The name of the region scoping this request. Name should conform to RFC1035.",
+"location": "path",
+"required": true,
+"type": "string"
+},
+"resizeRequest": {
+"description": "The name of the resize request. Name should conform to RFC1035 or be a resource ID.",
+"location": "path",
+"required": true,
+"type": "string"
+}
+},
+"path": "projects/{project}/regions/{region}/instanceGroupManagers/{instanceGroupManager}/resizeRequests/{resizeRequest}",
+"response": {
+"$ref": "InstanceGroupManagerResizeRequest"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute",
+"https://www.googleapis.com/auth/compute.readonly"
+]
+},
+"insert": {
+"description": "Creates a new Resize Request that starts provisioning VMs immediately or queues VM creation.",
+"flatPath": "projects/{project}/regions/{region}/instanceGroupManagers/{instanceGroupManager}/resizeRequests",
+"httpMethod": "POST",
+"id": "compute.regionInstanceGroupManagerResizeRequests.insert",
+"parameterOrder": [
+"project",
+"region",
+"instanceGroupManager"
+],
+"parameters": {
+"instanceGroupManager": {
+"description": "Name of the managed instance group to which the resize request is scoped. Name should conform to RFC1035 or be a resource ID.",
+"location": "path",
+"required": true,
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"region": {
+"description": "Name of the region scoping this request. Name should conform to RFC1035.",
+"location": "path",
+"required": true,
+"type": "string"
+},
+"requestId": {
+"description": "An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).",
+"location": "query",
+"type": "string"
+}
+},
+"path": "projects/{project}/regions/{region}/instanceGroupManagers/{instanceGroupManager}/resizeRequests",
+"request": {
+"$ref": "InstanceGroupManagerResizeRequest"
+},
+"response": {
+"$ref": "Operation"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute"
+]
+}
+}
+},
 "regionInstanceGroupManagers": {
 "methods": {
 "abandonInstances": {
@@ -28203,6 +28507,210 @@
 "scopes": [
 "https://www.googleapis.com/auth/cloud-platform",
 "https://www.googleapis.com/auth/compute"
+]
+}
+}
+},
+"regionInstantSnapshotGroups": {
+"methods": {
+"delete": {
+"description": "deletes a Regional InstantSnapshotGroup resource",
+"flatPath": "projects/{project}/regions/{region}/instantSnapshotGroups/{instantSnapshotGroup}",
+"httpMethod": "DELETE",
+"id": "compute.regionInstantSnapshotGroups.delete",
+"parameterOrder": [
+"project",
+"region",
+"instantSnapshotGroup"
+],
+"parameters": {
+"instantSnapshotGroup": {
+"description": "Name of the InstantSnapshotGroup resource to delete.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?|[1-9][0-9]{0,19}",
+"required": true,
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"region": {
+"description": "The name of the region for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+},
+"requestId": {
+"description": "An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).",
+"location": "query",
+"type": "string"
+}
+},
+"path": "projects/{project}/regions/{region}/instantSnapshotGroups/{instantSnapshotGroup}",
+"response": {
+"$ref": "Operation"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute"
+]
+},
+"get": {
+"description": "returns the specified InstantSnapshotGroup resource in the specified region.",
+"flatPath": "projects/{project}/regions/{region}/instantSnapshotGroups/{instantSnapshot}",
+"httpMethod": "GET",
+"id": "compute.regionInstantSnapshotGroups.get",
+"parameterOrder": [
+"project",
+"region",
+"instantSnapshot"
+],
+"parameters": {
+"instantSnapshot": {
+"description": "Name of the InstantSnapshotGroup resource to return.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?|[1-9][0-9]{0,19}",
+"required": true,
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"region": {
+"description": "The name of the region for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+}
+},
+"path": "projects/{project}/regions/{region}/instantSnapshotGroups/{instantSnapshot}",
+"response": {
+"$ref": "InstantSnapshotGroup"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute",
+"https://www.googleapis.com/auth/compute.readonly"
+]
+},
+"insert": {
+"description": "creates a Regional InstantSnapshotGroup resource",
+"flatPath": "projects/{project}/regions/{region}/instantSnapshotGroups",
+"httpMethod": "POST",
+"id": "compute.regionInstantSnapshotGroups.insert",
+"parameterOrder": [
+"project",
+"region"
+],
+"parameters": {
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"region": {
+"description": "Name of the region for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+},
+"requestId": {
+"description": "An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed. For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments. The request ID must be a valid UUID with the exception that zero UUID is not supported ( 00000000-0000-0000-0000-000000000000).",
+"location": "query",
+"type": "string"
+},
+"sourceConsistencyGroup": {
+"description": "begin_interface: MixerMutationRequestBuilder",
+"location": "query",
+"type": "string"
+}
+},
+"path": "projects/{project}/regions/{region}/instantSnapshotGroups",
+"request": {
+"$ref": "InstantSnapshotGroup"
+},
+"response": {
+"$ref": "Operation"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute"
+]
+},
+"list": {
+"description": "retrieves the list of InstantSnapshotGroup resources contained within the specified region.",
+"flatPath": "projects/{project}/regions/{region}/instantSnapshotGroups",
+"httpMethod": "GET",
+"id": "compute.regionInstantSnapshotGroups.list",
+"parameterOrder": [
+"project",
+"region"
+],
+"parameters": {
+"filter": {
+"description": "A filter expression that filters resources listed in the response. Most Compute resources support two types of filter expressions: expressions that support regular expressions and expressions that follow API improvement proposal AIP-160. These two types of filter expressions cannot be mixed in one request. If you want to use AIP-160, your expression must specify the field name, an operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The operator must be either `=`, `!=`, `>`, `<`, `<=`, `>=` or `:`. For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`. The `:*` comparison can be used to test whether a key has been defined. For example, to find all objects with `owner` label use: ``` labels.owner:* ``` You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels. To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = \"Intel Skylake\") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = \"Intel Skylake\") OR (cpuPlatform = \"Intel Broadwell\") AND (scheduling.automaticRestart = true) ``` If you want to use a regular expression, use the `eq` (equal) or `ne` (not equal) operator against a single un-parenthesized expression with or without quotes or against multiple parenthesized expressions. Examples: `fieldname eq unquoted literal` `fieldname eq 'single quoted literal'` `fieldname eq \"double quoted literal\"` `(fieldname1 eq literal) (fieldname2 ne \"literal\")` The literal value is interpreted as a regular expression using Google RE2 library syntax. The literal value must match the entire field. For example, to filter for instances that do not end with name \"instance\", you would use `name ne .*instance`. You cannot combine constraints on multiple fields using regular expressions.",
+"location": "query",
+"type": "string"
+},
+"maxResults": {
+"default": "500",
+"description": "The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)",
+"format": "uint32",
+"location": "query",
+"minimum": "0",
+"type": "integer"
+},
+"orderBy": {
+"description": "Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name. You can also sort results in descending order based on the creation timestamp using `orderBy=\"creationTimestamp desc\"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first. Currently, only sorting by `name` or `creationTimestamp desc` is supported.",
+"location": "query",
+"type": "string"
+},
+"pageToken": {
+"description": "Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.",
+"location": "query",
+"type": "string"
+},
+"project": {
+"description": "Project ID for this request.",
+"location": "path",
+"pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+"required": true,
+"type": "string"
+},
+"region": {
+"description": "The name of the region for this request.",
+"location": "path",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"required": true,
+"type": "string"
+},
+"returnPartialSuccess": {
+"description": "Opt-in for partial success behavior which provides partial results in case of failure. The default value is false. For example, when partial success behavior is enabled, aggregatedList for a single zone scope either returns all resources in the zone or no resources, with an error code.",
+"location": "query",
+"type": "boolean"
+}
+},
+"path": "projects/{project}/regions/{region}/instantSnapshotGroups",
+"response": {
+"$ref": "ListInstantSnapshotGroups"
+},
+"scopes": [
+"https://www.googleapis.com/auth/cloud-platform",
+"https://www.googleapis.com/auth/compute",
+"https://www.googleapis.com/auth/compute.readonly"
 ]
 }
 }
@@ -33564,7 +34072,7 @@
 "regions": {
 "methods": {
 "get": {
-"description": "Returns the specified Region resource. To decrease latency for this method, you can optionally omit any unneeded information from the response by using a field mask. This practice is especially recommended for unused quota information (the `quotas` field). To exclude one or more fields, set your request's `fields` query parameter to only include the fields you need. For example, to only include the `id` and `selfLink` fields, add the query parameter `?fields=id,selfLink` to your request.",
+"description": "Returns the specified Region resource. To decrease latency for this method, you can optionally omit any unneeded information from the response by using a field mask. This practice is especially recommended for unused quota information (the `quotas` field). To exclude one or more fields, set your request's `fields` query parameter to only include the fields you need. For example, to only include the `id` and `selfLink` fields, add the query parameter `?fields=id,selfLink` to your request. This method fails if the quota information is unavailable for the region and if the organization policy constraint compute.requireBasicQuotaInResponse is enforced. This constraint, when enforced, disables the fail-open behaviour when quota information (the `items.quotas` field) is unavailable for the region. It is recommended to use the default setting for the constraint unless your application requires the fail-closed behaviour for this method.",
 "flatPath": "projects/{project}/regions/{region}",
 "httpMethod": "GET",
 "id": "compute.regions.get",
@@ -44715,7 +45223,7 @@
 }
 }
 },
-"revision": "20240618",
+"revision": "20240707",
 "rootUrl": "https://compute.googleapis.com/",
 "schemas": {
 "AWSV4Signature": {
@@ -46139,6 +46647,14 @@ false
 "sourceInstanceTemplateId": {
 "description": "ID of the instance template used to populate reservation properties.",
 "type": "string"
+},
+"utilizations": {
+"additionalProperties": {
+"format": "int64",
+"type": "string"
+},
+"description": "Per service utilization breakdown. The Key is the Google Cloud managed service name.",
+"type": "object"
 }
 },
 "type": "object"
@@ -47479,11 +47995,13 @@ false
 "description": "Specifies how to determine whether the backend of a load balancer can handle additional traffic or is fully loaded. For usage guidelines, see Connection balancing mode. Backends must use compatible balancing modes. For more information, see Supported balancing modes and target capacity settings and Restrictions and guidance for instance groups. Note: Currently, if you use the API to configure incompatible balancing modes, the configuration might be accepted even though it has no impact and is ignored. Specifically, Backend.maxUtilization is ignored when Backend.balancingMode is RATE. In the future, this incompatible combination will be rejected.",
 "enum": [
 "CONNECTION",
+"CUSTOM_METRICS",
 "RATE",
 "UTILIZATION"
 ],
 "enumDescriptions": [
 "Balance based on the number of simultaneous connections.",
+"Based on custom defined and reported metrics.",
 "Balance based on requests per second (RPS).",
 "Balance based on the backend utilization."
 ],
@@ -47493,6 +48011,13 @@ false
 "description": "A multiplier applied to the backend's target capacity of its balancing mode. The default value is 1, which means the group serves up to 100% of its configured capacity (depending on balancingMode). A setting of 0 means the group is completely drained, offering 0% of its available capacity. The valid ranges are 0.0 and [0.1,1.0]. You cannot configure a setting larger than 0 and smaller than 0.1. You cannot configure a setting of 0 when there is only one backend attached to the backend service. Not available with backends that don't support using a balancingMode. This includes backends such as global internet NEGs, regional serverless NEGs, and PSC NEGs.",
 "format": "float",
 "type": "number"
+},
+"customMetrics": {
+"description": "List of custom metrics that are used for CUSTOM_METRICS BalancingMode and WEIGHTED_ROUND_ROBIN BackendService locality_lb_policy.",
+"items": {
+"$ref": "BackendCustomMetric"
+},
+"type": "array"
 },
 "description": {
 "description": "An optional description of this resource. Provide this property when you create the resource.",
@@ -47923,6 +48448,26 @@ false
 },
 "type": "object"
 },
+"BackendCustomMetric": {
+"description": "Custom Metrics are used for CUSTOM_METRICS balancing_mode and WEIGHTED_ROUND_ROBIN BackendService locality_lb_policy.",
+"id": "BackendCustomMetric",
+"properties": {
+"dryRun": {
+"description": "If true, the metric data is collected and reported to Cloud Monitoring, but is not used for load balancing.",
+"type": "boolean"
+},
+"maxUtilization": {
+"description": "Optional parameter to define a target utilization for the Custom Metrics balancing mode. The valid range is [0.0, 1.0].",
+"format": "float",
+"type": "number"
+},
+"name": {
+"description": "Name of a custom utilization signal. The name must be 1-24 characters long, and comply with RFC1035. Specifically, the name must be 1-24 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])? which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash. For usage guidelines, see Custom Metrics balancing mode. This field can only be used for a global or regional backend service with the loadBalancingScheme set to EXTERNAL_MANAGED, INTERNAL_MANAGED INTERNAL_SELF_MANAGED.",
+"type": "string"
+}
+},
+"type": "object"
+},
 "BackendService": {
 "description": "Represents a Backend Service resource. A backend service defines how Google Cloud load balancers distribute traffic. The backend service configuration contains a set of values, such as the protocol used to connect to backends, various distribution and session settings, health checks, and timeouts. These settings provide fine-grained control over how your load balancer behaves. Most of the settings have default values that allow for easy configuration if you need to get started quickly. Backend services in Google Compute Engine can be either regionally or globally scoped. * [Global](https://cloud.google.com/compute/docs/reference/rest/alpha/backendServices) * [Regional](https://cloud.google.com/compute/docs/reference/rest/alpha/regionBackendServices) For more information, see Backend Services.",
 "id": "BackendService",
@@ -48105,7 +48650,8 @@ false
 "RANDOM",
 "RING_HASH",
 "ROUND_ROBIN",
-"WEIGHTED_MAGLEV"
+"WEIGHTED_MAGLEV",
+"WEIGHTED_ROUND_ROBIN"
 ],
 "enumDescriptions": [
 "",
@@ -48115,7 +48661,8 @@ false
 "The load balancer selects a random healthy host.",
 "The ring/modulo hash load balancer implements consistent hashing to backends. The algorithm has the property that the addition/removal of a host from a set of N hosts only affects 1/N of the requests.",
 "This is a simple policy in which each healthy backend is selected in round robin order. This is the default.",
-"Per-instance weighted Load Balancing via health check reported weights. If set, the Backend Service must configure a non legacy HTTP-based Health Check, and health check replies are expected to contain non-standard HTTP response header field X-Load-Balancing-Endpoint-Weight to specify the per-instance weights. If set, Load Balancing is weighted based on the per-instance weights reported in the last processed health check replies, as long as every instance either reported a valid weight or had UNAVAILABLE_WEIGHT. Otherwise, Load Balancing remains equal-weight. This option is only supported in Network Load Balancing."
+"Per-instance weighted Load Balancing via health check reported weights. If set, the Backend Service must configure a non legacy HTTP-based Health Check, and health check replies are expected to contain non-standard HTTP response header field X-Load-Balancing-Endpoint-Weight to specify the per-instance weights. If set, Load Balancing is weighted based on the per-instance weights reported in the last processed health check replies, as long as every instance either reported a valid weight or had UNAVAILABLE_WEIGHT. Otherwise, Load Balancing remains equal-weight. This option is only supported in Network Load Balancing.",
+"Per-endpoint weighted round-robin Load Balancing using weights computed from Backend reported Custom Metrics. If set, the Backend Service responses are expected to contain non-standard HTTP response header field X-Endpoint-Load-Metrics. The reported metrics to use for computing the weights are specified via the backends[].customMetrics fields."
 ],
 "type": "string"
 },
@@ -48257,6 +48804,7 @@ false
 "type": "integer"
 },
 "usedBy": {
+"description": "[Output Only] List of resources referencing given backend service.",
 "items": {
 "$ref": "BackendServiceUsedBy"
 },
@@ -49091,7 +49639,8 @@ false
 "RANDOM",
 "RING_HASH",
 "ROUND_ROBIN",
-"WEIGHTED_MAGLEV"
+"WEIGHTED_MAGLEV",
+"WEIGHTED_ROUND_ROBIN"
 ],
 "enumDescriptions": [
 "",
@@ -49101,7 +49650,8 @@ false
 "The load balancer selects a random healthy host.",
 "The ring/modulo hash load balancer implements consistent hashing to backends. The algorithm has the property that the addition/removal of a host from a set of N hosts only affects 1/N of the requests.",
 "This is a simple policy in which each healthy backend is selected in round robin order. This is the default.",
-"Per-instance weighted Load Balancing via health check reported weights. If set, the Backend Service must configure a non legacy HTTP-based Health Check, and health check replies are expected to contain non-standard HTTP response header field X-Load-Balancing-Endpoint-Weight to specify the per-instance weights. If set, Load Balancing is weighted based on the per-instance weights reported in the last processed health check replies, as long as every instance either reported a valid weight or had UNAVAILABLE_WEIGHT. Otherwise, Load Balancing remains equal-weight. This option is only supported in Network Load Balancing."
+"Per-instance weighted Load Balancing via health check reported weights. If set, the Backend Service must configure a non legacy HTTP-based Health Check, and health check replies are expected to contain non-standard HTTP response header field X-Load-Balancing-Endpoint-Weight to specify the per-instance weights. If set, Load Balancing is weighted based on the per-instance weights reported in the last processed health check replies, as long as every instance either reported a valid weight or had UNAVAILABLE_WEIGHT. Otherwise, Load Balancing remains equal-weight. This option is only supported in Network Load Balancing.",
+"Per-endpoint weighted round-robin Load Balancing using weights computed from Backend reported Custom Metrics. If set, the Backend Service responses are expected to contain non-standard HTTP response header field X-Endpoint-Load-Metrics. The reported metrics to use for computing the weights are specified via the backends[].customMetrics fields."
 ],
 "type": "string"
 }
@@ -49212,6 +49762,7 @@ false
 "id": "BackendServiceUsedBy",
 "properties": {
 "reference": {
+"description": "[Output Only] Server-defined URL for resources referencing given BackendService like UrlMaps, TargetTcpProxies, TargetSslProxies and ForwardingRule.",
 "type": "string"
 }
 },
@@ -50058,6 +50609,10 @@ false
 "description": "[Output Only] Creation timestamp in RFC3339 text format.",
 "type": "string"
 },
+"customEndTimestamp": {
+"description": "[Input Only] Optional, specifies the CUD end time requested by the customer in RFC3339 text format. Needed when the customer wants CUD's end date is later than the start date + term duration.",
+"type": "string"
+},
 "description": {
 "description": "An optional description of this resource. Provide this property when you create the resource.",
 "type": "string"
@@ -50548,6 +51103,10 @@ false
 "cancellationInformation": {
 "$ref": "CommitmentResourceStatusCancellationInformation",
 "description": "[Output Only] An optional, contains all the needed information of cancellation."
+},
+"customTermEligibilityEndTimestamp": {
+"description": "[Output Only] Indicates the end time of customer's eligibility to send custom term requests in RFC3339 text format. Term extension requests that (not the end time in the request) after this time will be rejected.",
+"type": "string"
 }
 },
 "type": "object"
@@ -59606,8 +60165,7 @@ false
 "type": "array"
 },
 "baseInstanceName": {
-"description": "The base instance name to use for instances in this group. The value must be 1-58 characters long. Instances are named by appending a hyphen and a random four-character string to the base instance name. The base instance name must comply with RFC1035.",
-"pattern": "[a-z][-a-z0-9]{0,57}",
+"description": "The base instance name is a prefix that you want to attach to the names of all VMs in a MIG. The maximum character length is 58 and the name must comply with RFC1035 format. When a VM is created in the group, the MIG appends a hyphen and a random four-character string to the base instance name. If you want the MIG to assign sequential numbers instead of a random string, then end the base instance name with a hyphen followed by one or more hash symbols. The hash symbols indicate the number of digits. For example, a base instance name of \"vm-###\" results in \"vm-001\" as a VM name. @pattern [a-z](([-a-z0-9]{0,57})|([-a-z0-9]{0,52}-#{1,10}(\\\\[[0-9]{1,10}\\\\])?))",
 "type": "string"
 },
 "creationTimestamp": {
@@ -59706,6 +60264,10 @@ false
 "region": {
 "description": "[Output Only] The URL of the region where the managed instance group resides (for regional resources).",
 "type": "string"
+},
+"resourcePolicies": {
+"$ref": "InstanceGroupManagerResourcePolicies",
+"description": "Resource policies for this managed instance group."
 },
 "satisfiesPzi": {
 "description": "[Output Only] Reserved for future use.",
@@ -60745,6 +61307,16 @@ false
 }
 },
 "type": "object"
+}
+},
+"type": "object"
+},
+"InstanceGroupManagerResourcePolicies": {
+"id": "InstanceGroupManagerResourcePolicies",
+"properties": {
+"workloadPolicy": {
+"description": "The URL of the workload policy that is specified for this managed instance group. It can be a full or partial URL. For example, the following are all valid URLs to a workload policy: - https://www.googleapis.com/compute/v1/projects/project/regions/region /resourcePolicies/resourcePolicy - projects/project/regions/region/resourcePolicies/resourcePolicy - regions/region/resourcePolicies/resourcePolicy ",
+"type": "string"
 }
 },
 "type": "object"
@@ -63797,6 +64369,101 @@ false
 },
 "type": "object"
 },
+"InstantSnapshotGroup": {
+"id": "InstantSnapshotGroup",
+"properties": {
+"creationTimestamp": {
+"description": "[Output Only] Creation timestamp in RFC3339 text format.",
+"type": "string"
+},
+"description": {
+"description": "Optional. An optional description of this resource. Provide this property when you create the resource.",
+"type": "string"
+},
+"id": {
+"description": "[Output Only] The unique identifier for the resource. This identifier is defined by the server.",
+"format": "uint64",
+"type": "string"
+},
+"kind": {
+"default": "compute#instantSnapshotGroup",
+"description": "[Output Only] Type of the resource. Always compute#instantSnapshotGroup for InstantSnapshotGroup resources.",
+"type": "string"
+},
+"name": {
+"description": "Identifier. Name of the resource; provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.",
+"pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+"type": "string"
+},
+"region": {
+"description": "[Output Only] URL of the region where the instant snapshot group resides. You must specify this field as part of the HTTP request URL. It is not settable as a field in the request body.",
+"type": "string"
+},
+"resourceStatus": {
+"$ref": "InstantSnapshotGroupResourceStatus"
+},
+"selfLink": {
+"description": "[Output Only] Server-defined URL for the resource.",
+"type": "string"
+},
+"selfLinkWithId": {
+"description": "[Output Only] Server-defined URL for this resource's resource id.",
+"type": "string"
+},
+"status": {
+"description": "[Output Only]",
+"enum": [
+"CREATING",
+"DELETING",
+"FAILED",
+"INVALID",
+"READY",
+"UNKNOWN"
+],
+"enumDescriptions": [
+"",
+"",
+"",
+"",
+"",
+""
+],
+"type": "string"
+},
+"zone": {
+"description": "[Output Only] URL of the zone where the instant snapshot group resides. You must specify this field as part of the HTTP request URL. It is not settable as a field in the request body.",
+"type": "string"
+}
+},
+"type": "object"
+},
+"InstantSnapshotGroupResourceStatus": {
+"id": "InstantSnapshotGroupResourceStatus",
+"properties": {
+"consistencyMembershipResolutionTime": {
+"description": "[Output Only]",
+"format": "google-datetime",
+"type": "string"
+},
+"sourceInfo": {
+"$ref": "InstantSnapshotGroupSourceInfo",
+"description": "[Output Only]"
+}
+},
+"type": "object"
+},
+"InstantSnapshotGroupSourceInfo": {
+"id": "InstantSnapshotGroupSourceInfo",
+"properties": {
+"consistencyGroup": {
+"type": "string"
+},
+"consistencyGroupId": {
+"type": "string"
+}
+},
+"type": "object"
+},
 "InstantSnapshotList": {
 "description": "Contains a list of InstantSnapshot resources.",
 "id": "InstantSnapshotList",
@@ -64330,6 +64997,9 @@ false
 "id": "InterconnectApplicationAwareInterconnect",
 "properties": {
 "bandwidthPercentagePolicy": {
+"$ref": "InterconnectApplicationAwareInterconnectBandwidthPercentagePolicy"
+},
+"egressMinBandwidthPercentagePolicy": {
 "$ref": "InterconnectApplicationAwareInterconnectBandwidthPercentagePolicy"
 },
 "profileDescription": {
@@ -67126,6 +67796,168 @@ false
 },
 "type": "object"
 },
+"ListInstantSnapshotGroups": {
+"description": "Contains a list of InstantSnapshotGroup resources.",
+"id": "ListInstantSnapshotGroups",
+"properties": {
+"etag": {
+"type": "string"
+},
+"id": {
+"description": "[Output Only] Unique identifier for the resource; defined by the server.",
+"type": "string"
+},
+"items": {
+"description": "A list of InstantSnapshotGroup resources.",
+"items": {
+"$ref": "InstantSnapshotGroup"
+},
+"type": "array"
+},
+"kind": {
+"default": "compute#instantSnapshotGroupsList",
+"description": "Type of resource.",
+"type": "string"
+},
+"nextPageToken": {
+"description": "[Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.",
+"type": "string"
+},
+"selfLink": {
+"description": "[Output Only] Server-defined URL for this resource.",
+"type": "string"
+},
+"unreachables": {
+"description": "[Output Only] Unreachable resources. end_interface: MixerListResponseWithEtagBuilder",
+"items": {
+"type": "string"
+},
+"type": "array"
+},
+"warning": {
+"description": "[Output Only] Informational warning message.",
+"properties": {
+"code": {
+"description": "[Output Only] A warning code, if applicable. For example, Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in the response.",
+"enum": [
+"CLEANUP_FAILED",
+"DEPRECATED_RESOURCE_USED",
+"DEPRECATED_TYPE_USED",
+"DISK_SIZE_LARGER_THAN_IMAGE_SIZE",
+"EXPERIMENTAL_TYPE_USED",
+"EXTERNAL_API_WARNING",
+"FIELD_VALUE_OVERRIDEN",
+"INJECTED_KERNELS_DEPRECATED",
+"INVALID_HEALTH_CHECK_FOR_DYNAMIC_WIEGHTED_LB",
+"LARGE_DEPLOYMENT_WARNING",
+"LIST_OVERHEAD_QUOTA_EXCEED",
+"MISSING_TYPE_DEPENDENCY",
+"NEXT_HOP_ADDRESS_NOT_ASSIGNED",
+"NEXT_HOP_CANNOT_IP_FORWARD",
+"NEXT_HOP_INSTANCE_HAS_NO_IPV6_INTERFACE",
+"NEXT_HOP_INSTANCE_NOT_FOUND",
+"NEXT_HOP_INSTANCE_NOT_ON_NETWORK",
+"NEXT_HOP_NOT_RUNNING",
+"NOT_CRITICAL_ERROR",
+"NO_RESULTS_ON_PAGE",
+"PARTIAL_SUCCESS",
+"REQUIRED_TOS_AGREEMENT",
+"RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING",
+"RESOURCE_NOT_DELETED",
+"SCHEMA_VALIDATION_IGNORED",
+"SINGLE_INSTANCE_PROPERTY_TEMPLATE",
+"UNDECLARED_PROPERTIES",
+"UNREACHABLE"
+],
+"enumDeprecated": [
+false,
+false,
+false,
+false,
+false,
+false,
+true,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false,
+false
+],
+"enumDescriptions": [
+"Warning about failed cleanup of transient changes made by a failed operation.",
+"A link to a deprecated resource was created.",
+"When deploying and at least one of the resources has a type marked as deprecated",
+"The user created a boot disk that is larger than image size.",
+"When deploying and at least one of the resources has a type marked as experimental",
+"Warning that is present in an external api call",
+"Warning that value of a field has been overridden. Deprecated unused field.",
+"The operation involved use of an injected kernel, which is deprecated.",
+"A WEIGHTED_MAGLEV backend service is associated with a health check that is not of type HTTP/HTTPS/HTTP2.",
+"When deploying a deployment with a exceedingly large number of resources",
+"Resource can't be retrieved due to list overhead quota exceed which captures the amount of resources filtered out by user-defined list filter.",
+"A resource depends on a missing type",
+"The route's nextHopIp address is not assigned to an instance on the network.",
+"The route's next hop instance cannot ip forward.",
+"The route's nextHopInstance URL refers to an instance that does not have an ipv6 interface on the same network as the route.",
+"The route's nextHopInstance URL refers to an instance that does not exist.",
+"The route's nextHopInstance URL refers to an instance that is not on the same network as the route.",
+"The route's next hop instance does not have a status of RUNNING.",
+"Error which is not critical. We decided to continue the process despite the mentioned error.",
+"No results are present on a particular list page.",
+"Success is reported, but some results may be missing due to errors",
+"The user attempted to use a resource that requires a TOS they have not accepted.",
+"Warning that a resource is in use.",
+"One or more of the resources set to auto-delete could not be deleted because they were in use.",
+"When a resource schema validation is ignored.",
+"Instance template used in instance group manager is valid as such, but its application does not make a lot of sense, because it allows only single instance in instance group.",
+"When undeclared properties in the schema are present",
+"A given scope cannot be reached."
+],
+"type": "string"
+},
+"data": {
+"description": "[Output Only] Metadata about this warning in key: value format. For example: \"data\": [ { \"key\": \"scope\", \"value\": \"zones/us-east1-d\" } ",
+"items": {
+"properties": {
+"key": {
+"description": "[Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).",
+"type": "string"
+},
+"value": {
+"description": "[Output Only] A warning data value corresponding to the key.",
+"type": "string"
+}
+},
+"type": "object"
+},
+"type": "array"
+},
+"message": {
+"description": "[Output Only] A human-readable description of the warning code.",
+"type": "string"
+}
+},
+"type": "object"
+}
+},
+"type": "object"
+},
 "LocalDisk": {
 "id": "LocalDisk",
 "properties": {
@@ -68644,6 +69476,9 @@ false
 "selfLinkWithId": {
 "description": "[Output Only] Server-defined URL for this resource with the resource id.",
 "type": "string"
+},
+"status": {
+"$ref": "MultiMigStatus"
 }
 },
 "type": "object"
@@ -68692,6 +69527,18 @@ false
 "Requires all parts at the same time."
 ],
 "type": "string"
+}
+},
+"type": "object"
+},
+"MultiMigStatus": {
+"id": "MultiMigStatus",
+"properties": {
+"memberInstanceGroupManagers": {
+"items": {
+"type": "string"
+},
+"type": "array"
 }
 },
 "type": "object"
@@ -70061,12 +70908,6 @@ false
 "format": "int32",
 "type": "integer"
 },
-"clientPort": {
-"deprecated": true,
-"description": "Represents the port number to which PSC consumer sends packets. Only valid for network endpoint groups created with CLIENT_PORT_PER_ENDPOINT mapping mode.",
-"format": "int32",
-"type": "integer"
-},
 "fqdn": {
 "description": "Optional fully qualified domain name of network endpoint. This can only be specified when NetworkEndpointGroup.network_endpoint_type is NON_GCP_FQDN_PORT.",
 "type": "string"
@@ -70109,19 +70950,6 @@ false
 "appEngine": {
 "$ref": "NetworkEndpointGroupAppEngine",
 "description": "Only valid when networkEndpointType is SERVERLESS. Only one of cloudRun, appEngine or cloudFunction may be set."
-},
-"clientPortMappingMode": {
-"deprecated": true,
-"description": "Only valid when networkEndpointType is GCE_VM_IP_PORT and the NEG is regional.",
-"enum": [
-"CLIENT_PORT_PER_ENDPOINT",
-"PORT_MAPPING_DISABLED"
-],
-"enumDescriptions": [
-"For each endpoint there is exactly one client port.",
-"NEG should not be used for mapping client port to destination."
-],
-"type": "string"
 },
 "cloudFunction": {
 "$ref": "NetworkEndpointGroupCloudFunction",
@@ -82117,6 +82945,9 @@ false
 "vmMaintenancePolicy": {
 "$ref": "ResourcePolicyVmMaintenancePolicy",
 "description": "Resource policy applicable to VMs for infrastructure maintenance."
+},
+"workloadPolicy": {
+"$ref": "ResourcePolicyWorkloadPolicy"
 }
 },
 "type": "object"
@@ -82796,6 +83627,24 @@ false
 },
 "type": "object"
 },
+"ResourcePolicyWorkloadPolicy": {
+"description": "Represents the workload policy.",
+"id": "ResourcePolicyWorkloadPolicy",
+"properties": {
+"type": {
+"enum": [
+"HIGH_AVAILABILITY",
+"HIGH_THROUGHPUT"
+],
+"enumDescriptions": [
+"VMs will be provisioned in such a way which provides high availability.",
+"VMs will be provisioned in such a way which provides high throughput."
+],
+"type": "string"
+}
+},
+"type": "object"
+},
 "ResourceStatus": {
 "description": "Contains output only fields. Use this sub-message for actual values set on Instance attributes as compared to the value requested by the user (intent) in their instance CRUD calls.",
 "id": "ResourceStatus",
@@ -82874,7 +83723,7 @@ false
 "id": "ResourceStatusScheduling",
 "properties": {
 "availabilityDomain": {
-"description": "Specifies the availability domain (AD), which this instance should be scheduled on. The AD belongs to the spread GroupPlacementPolicy resource policy that has been assigned to the instance. Specify a value between 1-max count of availability domains in your GroupPlacementPolicy. See go/placement-policy-extension for more details.",
+"description": "Specifies the availability domain to place the instance in. The value must be a number between 1 and the number of availability domains specified in the spread placement policy attached to the instance.",
 "format": "int32",
 "type": "integer"
 },
@@ -85854,7 +86703,7 @@ false
 "type": "boolean"
 },
 "availabilityDomain": {
-"description": "Specifies the availability domain (AD), which this instance should be scheduled on. The AD belongs to the spread GroupPlacementPolicy resource policy that has been assigned to the instance. Specify a value between 1-max count of availability domains in your GroupPlacementPolicy. See go/placement-policy-extension for more details.",
+"description": "Specifies the availability domain to place the instance in. The value must be a number between 1 and the number of availability domains specified in the spread placement policy attached to the instance.",
 "format": "int32",
 "type": "integer"
 },
@@ -98900,7 +99749,7 @@ false
 "type": "string"
 },
 "stackType": {
-"description": "The stack type for this VPN gateway to identify the IP protocols that are enabled. Possible values are: IPV4_ONLY, IPV4_IPV6. If not specified, IPV4_ONLY will be used.",
+"description": "The stack type for this VPN gateway to identify the IP protocols that are enabled. Possible values are: IPV4_ONLY, IPV4_IPV6, IPV6_ONLY. If not specified, IPV4_ONLY is used if the gateway IP version is IPV4, or IPV4_IPV6 if the gateway IP version is IPV6.",
 "enum": [
 "IPV4_IPV6",
 "IPV4_ONLY",

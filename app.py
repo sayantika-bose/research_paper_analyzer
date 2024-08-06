@@ -21,7 +21,7 @@ from flask_session import Session
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
 from langchain.chains import RetrievalQA
-import certifi
+
 
 
 app = Flask(__name__)
@@ -190,7 +190,6 @@ def process_file(file_path):
         collection=collection,
         index_name="default",
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)
