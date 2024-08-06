@@ -21,6 +21,7 @@ from flask_session import Session
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
 from langchain.chains import RetrievalQA
+import certifi
 
 
 app = Flask(__name__)
@@ -125,7 +126,7 @@ def login():
 @app.route("/logout", methods=["POST"])
 def logout():
     client = MongoClient(
-        "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/"
+        "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     )
     dbName = "gemini_project"
     collectionName = "Research_Paper"
@@ -177,7 +178,7 @@ def process_file(file_path):
         google_api_key="AIzaSyBT_cXS1-V5ggaDcx7heSHJMb0h1r-xoPU",
     )
     client = MongoClient(
-        "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/"
+        "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     )
     dbName = "gemini_project"
     collectionName = "Research_Paper"

@@ -20,14 +20,14 @@ doc_embeddings_model = GoogleGenerativeAIEmbeddings(
 )
 
 client = MongoClient(
-    "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/"
+    "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 )
 dbName = "gemini_project"
 collectionName = "Research_Paper"
 collection = client[dbName][collectionName]
 
 vector_search = MongoDBAtlasVectorSearch.from_connection_string(
-    "mongodb+srv://sudhaneg8321:H3ltadIghy1M1xUK@gemini.nx6gfiz.mongodb.net/",
+    "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
     dbName + "." + collectionName,
     doc_embeddings_model,
     index_name="default",
