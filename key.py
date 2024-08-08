@@ -35,17 +35,19 @@ vector_search = MongoDBAtlasVectorSearch.from_connection_string(
 
 retriever = vector_search.as_retriever(search_kwargs={"k": 110})
 
-prompt_template = """From the context, extract the keywords alone if the context is a research paper, so else just return that the uploaded file is not a research paper.
+prompt_template = """From the context, answer the questions if the context is a research paper, so else just return that the uploaded file is not a research paper.
 
 {context}
+
+Question: {question}
 """
 
 PROMPT = PromptTemplate(
-    template=prompt_template, input_variables=["context"]
+    template=prompt_template, input_variables=["context", "question"]
 )
 
 chat_model = ChatGoogleGenerativeAI(
-    model="gemini-1.5-pro-latest",
+    model="gemini-1.5-pro-exp-0801",
     google_api_key="AIzaSyB3BBf69PnHSy1crohfyymSJfDmvLdRjvs",
 )
 
@@ -57,18 +59,67 @@ def format_docs(docs):
 
 
 @app.route("/api/keywordextract", methods=["GET"])
-def chat():
-    data = request.get_json()
+def keyword():
     RAG_Chain = (
-        {"context": retriever | format_docs}
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
         | PROMPT
         | chat_model
         | output_parser
     )
 
-    response = RAG_Chain.invoke()
+    response = RAG_Chain.invoke(
+        "Please give the keywords from the given research paper."
+    )
     return jsonify({"answer": response})
 
 
+@app.route("/api/concept", methods=["GET"])
+def concept():
+    RAG_Chain = (
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        | PROMPT
+        | chat_model
+        | output_parser
+    )
+
+    response = RAG_Chain.invoke(
+        "Please do the concept tagging for the given research paper."
+    )
+    return jsonify({"answer": response})
+
+
+@app.route("/api/sections", methods=["GET"])
+def section():
+    RAG_Chain = (
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        | PROMPT
+        | chat_model
+        | output_parser
+    )
+
+    response = RAG_Chain.invoke(
+        "Please identify the sections in the given research paper."
+    )
+    return jsonify({"answer": response})
+
+@app.route("/api/definition", methods=["POST"])
+def definition():
+    data = request.get_json()
+    word = data.get("word")
+    RAG_Chain = (
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        | PROMPT
+        | chat_model
+        | output_parser
+    )
+
+    response = RAG_Chain.invoke(
+        f"Please give the definition for the following word {word} in the given research paper."
+    )
+    return jsonify({"answer": response})
+
+
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)
+
