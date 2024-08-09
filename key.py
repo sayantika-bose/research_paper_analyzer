@@ -48,7 +48,7 @@ PROMPT = PromptTemplate(
 
 chat_model = ChatGoogleGenerativeAI(
     model="gemini-1.5-pro-exp-0801",
-    google_api_key="AIzaSyB3BBf69PnHSy1crohfyymSJfDmvLdRjvs",
+    google_api_key="AIzaSyCaZs5tATUvsuiveb8U_lWPmC9qPOUMYFs",
 )
 
 output_parser = StrOutputParser()
