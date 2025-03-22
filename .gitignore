@@ -172,3 +172,29 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+*.pyo
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Flask session files
+flask_session/
+
+# Uploads folder
+uploads/
+
+# Environment variables file
+.env
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
