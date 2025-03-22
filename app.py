@@ -1,6 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from werkzeug.utils import secure_filename
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    jwt_required,
+    get_jwt_identity,
+)
+from werkzeug.security import check_password_hash
 import os
 from flask_cors import CORS
 from flask_login import (
@@ -16,23 +23,24 @@ from werkzeug.utils import secure_filename
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import NLTKTextSplitter
-from langchain_chroma import Chroma
 from flask_session import Session
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
-from langchain.chains import RetrievalQA
+from dotenv import load_dotenv
+import os
 
-
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"  # Define your upload folder
-app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/gemini"  # MongoDB URI
-mongo = PyMongo(app)
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")  # MongoDB URI
+mongo = MongoClient(app.config["MONGO_URI"])
 CORS(app)
 
-app.config["SECRET_KEY"] = (
-    "9f0cb7d7116f1092ef1fc972315480321215f7f515ef2cc6852663c65c2c2540"
-)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+jwt = JWTManager(app)
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = False
 app.config["UPLOAD_FOLDER"] = os.path.join(os.getcwd(), "uploads")
@@ -46,9 +54,15 @@ bcrypt = Bcrypt(app)
 # Ensure upload folder exists
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
+# Use environment variables for database and collection names
+DB_NAME = os.getenv("DB_NAME")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")
+MODEL_NAME = os.getenv("MODEL_NAME")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
 
 class User(UserMixin):
-    def __init__(self, email, password=None, name=None, phone=None):
+    def _init_(self, email, password=None, name=None, phone=None):
         self.email = email
         self.password = password
         self.name = name
@@ -107,30 +121,27 @@ def login():
     user = User.get(email)
     if user and bcrypt.check_password_hash(user.password, password):
         login_user(user)
+        access_token = create_access_token(
+            identity={"email": user.email, "name": user.name}
+        )
         return (
-            jsonify(
-                {
-                    "message": "Login successful",
-                    "user": {
-                        "email": user.email,
-                        "name": user.name,
-                        "phone": user.phone,
-                    },
-                }
-            ),
+            jsonify({"message": "Login successful", "access_token": access_token}),
             200,
         )
     return jsonify({"message": "Invalid email or password"}), 401
 
 
+@app.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
+
 @app.route("/logout", methods=["POST"])
 def logout():
-    client = MongoClient(
-        "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-    )
-    dbName = "gemini_project"
-    collectionName = "Research_Paper"
-    collection = client[dbName][collectionName]
+    collection = mongo[DB_NAME][COLLECTION_NAME]
     collection.delete_many({})
 
     # Clear session
@@ -173,16 +184,11 @@ def process_file(file_path):
     print(len(chunks))
 
     doc_embeddings_model = GoogleGenerativeAIEmbeddings(
-        model="models/embedding-001",
+        model=MODEL_NAME,
         task_type="retrieval_document",
-        google_api_key="AIzaSyBT_cXS1-V5ggaDcx7heSHJMb0h1r-xoPU",
+        google_api_key=GOOGLE_API_KEY,
     )
-    client = MongoClient(
-        "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-    )
-    dbName = "gemini_project"
-    collectionName = "Research_Paper"
-    collection = client[dbName][collectionName]
+    collection = mongo[DB_NAME][COLLECTION_NAME]
 
     MongoDBAtlasVectorSearch.from_documents(
         documents=chunks,
@@ -190,6 +196,7 @@ def process_file(file_path):
         collection=collection,
         index_name="default",
     )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

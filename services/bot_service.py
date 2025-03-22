@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
@@ -10,25 +12,25 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
+load_dotenv()
+
 app = Flask(__name__)
 CORS(app)
 
 doc_embeddings_model = GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001",
+    model=os.getenv("EMBEDDING_MODEL"),
     task_type="retrieval_document",
-    google_api_key="AIzaSyBT_cXS1-V5ggaDcx7heSHJMb0h1r-xoPU",
+    google_api_key=os.getenv("GOOGLE_API_KEY"),
 )
 
-client = MongoClient(
-    "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-)
-dbName = "gemini_project"
-collectionName = "Research_Paper"
+client = MongoClient(os.getenv("MONGO_URI"))
+dbName = os.getenv("DB_NAME")
+collectionName = os.getenv("COLLECTION_NAME")
 collection = client[dbName][collectionName]
 
 vector_search = MongoDBAtlasVectorSearch.from_connection_string(
-    "mongodb+srv://saisudhane24:Sxm9jUCXjDkXGnF9@cluster0.lgvkk8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    dbName + "." + collectionName,
+    os.getenv("MONGO_URI"),
+    f"{dbName}.{collectionName}",
     doc_embeddings_model,
     index_name="default",
 )
@@ -46,8 +48,8 @@ PROMPT = PromptTemplate(
 )
 
 chat_model = ChatGoogleGenerativeAI(
-    model="gemini-1.5-pro-latest",
-    google_api_key="AIzaSyB3BBf69PnHSy1crohfyymSJfDmvLdRjvs",
+    model=os.getenv("CHAT_MODEL"),
+    google_api_key=os.getenv("CHAT_MODEL_API_KEY"),
 )
 
 output_parser = StrOutputParser()
